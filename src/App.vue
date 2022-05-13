@@ -29,7 +29,27 @@ export default {
 </script>
 
 <template>
-  <main class="bg-gray-800 w-screen h-screen overflow-hidden px-24">
+  <main class="bg-gray-900 w-screen h-screen overflow-hidden px-24">
+    <div
+      class="absolute overflow-hidden -top-32 w-96 h-96 blur-3xl bg-gradient-to-b from-pink-500/50 to-red-500/50 rounded-full"
+    />
+    <div
+      class="absolute overflow-hidden top-48 -left-32 w-96 h-96 blur-3xl bg-gradient-to-b from-blue-500/50 to-cyan-500/50 rounded-full"
+    />
+    <div
+      class="absolute overflow-hidden -top-16 -left-16 w-96 h-96 blur-3xl bg-gradient-to-b from-purple-500/50 to-pink-500/50 rounded-full"
+    />
+
+    <div
+      class="absolute overflow-hidden -bottom-32 right-16 w-96 h-96 blur-3xl bg-gradient-to-b from-pink-500/50 to-red-500/50 rounded-full"
+    />
+    <div
+      class="absolute overflow-hidden bottom-48 -right-32 w-96 h-96 blur-3xl bg-gradient-to-b from-blue-500/50 to-cyan-500/50 rounded-full"
+    />
+    <div
+      class="absolute overflow-hidden -bottom-16 -right-16 w-96 h-96 blur-3xl bg-gradient-to-b from-purple-500/50 to-pink-500/50 rounded-full"
+    />
+
     <nav class="flex flex-row justify-center items-center py-4">
       <h1
         class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500"
