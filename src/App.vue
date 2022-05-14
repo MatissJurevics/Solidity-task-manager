@@ -20,8 +20,8 @@ export default {
   },
   methods: {
     async loadTasks() {
-      let _tasks = await this.contract.viewTasks();
-      tasks = _tasks;
+      let hmm = await this.contract.viewTasks();
+      console.log(hmm)
     },
     addTask(title) {
       let newTask = {};

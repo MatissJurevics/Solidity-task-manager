@@ -2,7 +2,7 @@ import {ethers} from 'ethers';
 
 
 
-const setupContract = () => {
+const setupContract = async () => {
     let contractAddress = "0xAc0fD5105Cd6e0558a68a354F1709DBaf683a8db";
     let contractABI = [
         {
@@ -122,14 +122,24 @@ const setupContract = () => {
             "type": "function"
         }
     ];
-    let signer;
+    let contract
+    var signer;
     let provider = new ethers.providers.Web3Provider(window.ethereum, "ropsten");
     provider.send("eth_requestAccounts", []).then(() => {
         provider.listAccounts().then((accounts) => {
+            console.log(accounts)
             signer = provider.getSigner(accounts[0]);
+            contract = new ethers.Contract(contractAddress, contractABI, signer)
         })
     })
-    return new ethers.Contract(contractAddress, contractABI, signer)
+    console.log(provider.listAccounts())
+    let step1 = await provider.send("eth_requestAccounts", [])
+    let step2 = await provider.listAccounts()
+    console.log(step2)
+    contract = new ethers.Contract(contractAddress, contractABI, signer)
+    console.log(signer)
+    console.log(contract)
+    return contract
 }
 
 export default {setupContract}
