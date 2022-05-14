@@ -1,35 +1,43 @@
 <script>
 import TaskInput from "./components/taskInput.vue"
 import Aurora from "./components/auroraBG.vue"
+import TaskList from "./components/taskList.vue"
 export default {
   data() {
     return {
       input: "",
       tasks: [
         {
+          id: 0,
           title: "collect Debts",
         },
         {
+          id: 1,
           title: "Gather the townspeople",
         },
         {
+          id: 2,
           title: "Go on a shopping spree",
         },
       ],
     };
   },
   methods: {
-    taskAdd() {
-      console.log(this.input);
-      this.tasks.push({
-        title: this.input,
-      });
-      console.log(this.tasks);
+    addTask(title) {
+      let newTask = {}
+      newTask.title = title;
+      newTask.id = this.tasks.length
+      this.tasks.push(newTask);
     },
+    deleteTask(id) {
+
+    }
   },
+  emits: ["add-task", "delete-task"],
   components: {
     TaskInput,
-    Aurora
+    Aurora,
+    TaskList
   }
 };
 </script>
@@ -45,18 +53,11 @@ export default {
         Ethereum Task Manager
       </h1>
     </nav>
-   <TaskInput />
+   <TaskInput @add-task="addTask" />
     <section class="flex flex-col items-center mt-8 w-full">
 
       <ul class="w-full flex flex-col items-center mt-8">
-        <div
-          v-for="task in tasks"
-          :key="task"
-          class="w-1/3 min-w-[350px] my-3 px-3 py-4 border-2 border-slate-600 rounded-xl text-white flex flex-row justify-between hover:bg-white/5 hover:-translate-y-1 hover:scale-105 hover:shadow-lg transition ease-in-out"
-        >
-          <p class="my-auto">{{ task.title }}</p>
-          <p class="font-bold text-xl cursor-pointer hover:text-red-400 transition ease-in-out">X</p>
-        </div>
+        <TaskList @delete-task="deleteTask" :tasks="tasks" />
       </ul>
     </section>
   </main>
