@@ -10,7 +10,8 @@ export default {
     return {
       input: "",
       contract: c.setupContract(),
-      tasks: []
+      tasks: [],
+      alert: false
     };
   },
   methods: {
@@ -23,12 +24,13 @@ export default {
       
       let cont = await this.contract
       let newlist = await cont.addTask(title, uuid())
-      // this.tasks = newlist;
+      this.alert = true
       console.log("newllist: "+newlist);
     },
     async deleteTask(id) {
       let cont = await this.contract
       let newlist = await cont.removeTask(id)
+      this.alert = true
       this.tasks = newlist;
       
     },
@@ -59,6 +61,9 @@ export default {
     </nav>
     
     <TaskInput @add-task="addTask" />
+    <div v-if="alert" class="flex flex-row mt-4 justify-center items-center text-lg text-slate-300 ">
+      <p class="max-w-[500px] text-center">Note: upon running the contract it may take up to a minute for the task to be added / removed also click "load tasks" to reload</p>
+    </div>
     <section class="flex flex-col items-center mt-8 w-full">
       <ul class="w-full flex flex-col items-center mt-8">
         <TaskList @delete-task="deleteTask" :tasks="tasks" />
