@@ -10,30 +10,27 @@ export default {
     return {
       input: "",
       contract: c.setupContract(),
-      tasks: [
-        {
-          id: uuid(),
-          title: "this is a test",
-        },
-      ],
+      tasks: []
     };
   },
   methods: {
     async loadTasks() {
-      let hmm = await this.contract.viewTasks();
-      console.log(hmm)
+      let cont = await this.contract
+      let newlist = await cont.viewTasks();
+      this.tasks = newlist
     },
-    addTask(title) {
-      let newTask = {};
-      newTask.title = title;
-      newTask.id = uuid();
-      this.tasks.push(newTask);
+    async addTask(title) {
+      
+      let cont = await this.contract
+      let newlist = await cont.addTask(title, uuid())
+      // this.tasks = newlist;
+      console.log("newllist: "+newlist);
     },
-    deleteTask(id) {
-      let newTasks = this.tasks.filter((t) => {
-        return t.id !== id;
-      });
-      this.tasks = newTasks;
+    async deleteTask(id) {
+      let cont = await this.contract
+      let newlist = await cont.removeTask(id)
+      this.tasks = newlist;
+      
     },
   },
 
@@ -47,16 +44,20 @@ export default {
 </script>
 
 <template>
-  <button @click="loadTasks">clickme</button>
+
   <main class="bg-gray-900 w-screen relative h-screen overflow-hidden px-24">
     <Aurora />
-    <nav class="flex w-full flex-row justify-center items-center py-4">
+    <nav class="flex w-full flex-col justify-center items-center py-4">
       <h1
         class="text-xl md:text-4xl text-center font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500"
       >
         Ethereum Task Manager
       </h1>
+      <button class="bg-slate-600 rounded-xl p-3 mt-4 text-white" @click="loadTasks">
+      Load Tasks
+    </button>
     </nav>
+    
     <TaskInput @add-task="addTask" />
     <section class="flex flex-col items-center mt-8 w-full">
       <ul class="w-full flex flex-col items-center mt-8">
