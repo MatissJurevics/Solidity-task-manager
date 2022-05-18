@@ -10,4 +10,5 @@ This application is built with vue for the frontend and uses a solidity smart co
 - Tailwind
 - Solidity
 - ethers.js
+- Ropsten test network
 
